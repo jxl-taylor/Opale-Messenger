@@ -7,15 +7,15 @@
         "start": "electron ."
     },
     "keywords": [
-    "Opale",
-    "Messenger",
-    "Transparent",
-    "Wrapper"
-  ],
+        "Opale",
+        "Messenger",
+        "Transparent",
+        "Wrapper"
+    ],
     "author": "David Mellul",
     "license": "MIT",
     "devDependencies": {
-        "electron": "^1.4.1",
+        "electron": "^1.8.8",
         "electron-packager": "^8.5.0",
         "electron-rebuild": "^1.5.6",
         "electron-settings": "^2.2.2",

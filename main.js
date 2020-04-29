@@ -129,8 +129,10 @@ app.on('ready', function () {
 app.on('ready', function () {
     if(process.platform == 'darwin') 
         app.dock.hide();
-        
+
     bubble = new BrowserWindow({
+        x: 1280,
+        y: 680,
         width: bW,
         height: bH,
         maxWidth: bW,

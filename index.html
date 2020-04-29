@@ -30,7 +30,7 @@
                                                                     ipcRenderer.send('reset-window-pos');"></button>
         </div>
         <div class="windowSettings">
-            <button class="fa fa-bars" aria-hidden="true" onclick="toggled = !toggled; 
+            <button class="fa fa-bars" aria-hidden="true" onclick="toggled = !toggled;
                                                                        if(!toggled)
                                                                         $('#settingsPanel').removeClass('animated slideInLeft').addClass('animated slideOutLeft');
                                                                        else             
@@ -54,7 +54,7 @@
 
     <!--------------------------------------------------------- Webview ----------------------------------------------------------!-->
     <div id="webviewWrapper" class="invisible">
-        <webview src="https://messenger.com/login" id="webview" autosize="on"></webview>
+        <webview src="https://twitter.com/login" id="webview" autosize="on"></webview>
     </div>
 
     <!--------------------------------------------------------- Settings panel ----------------------------------------------------------!-->
@@ -70,7 +70,7 @@
                     <ul class="choice-list" id="list_1">
                         <li class="checkbox check" onclick="$('#accountModal').attr('data-visible','true');"></li>
                         <li class="checkbox cross" onclick="resetLoginAndPassword(); 
-                                                            if(!$('#list_2 .cross').hasClass('is-checked')) 
+                                                            if(!$('#list_2 .cross').hasClass('is-checked'))
                                                                 $('#list_2 .cross').click();"></li>
                     </ul>
                 </td>

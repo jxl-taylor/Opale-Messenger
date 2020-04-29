@@ -21,11 +21,10 @@
     <!--------------------------------------------------------- Loader ----------------------------------------------------------!-->
     <div id="main">
         <div id="mainContent">
-            <button class="fa fa-diamond">
-                <a class="drag-element"></a>
+            <button class="fa">
+                <a class="drag-element"><img src="images/税帐同步机器人.png"></a>
             </button>
-            <br />
-            <div class="conv-number">0</div>
+            <div class="badge">15</div>
         </div>
     </div>
 
@@ -76,11 +75,14 @@
         });
         $('button').mousedown(() => {
             buttonClicked = true;
+			dragging = true;
+			wX = e.pageX;
+			wY = e.pageY;
         });
         $(window).mousemove(function (e) {
             e.stopPropagation();
             e.preventDefault();
-            if (dragging && !buttonClicked) {
+            if (dragging) {
                 var xLoc = e.screenX - wX;
                 var yLoc = e.screenY - wY;
                 try {
