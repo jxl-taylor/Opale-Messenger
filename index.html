@@ -54,7 +54,7 @@
 
     <!--------------------------------------------------------- Webview ----------------------------------------------------------!-->
     <div id="webviewWrapper" class="invisible">
-        <webview src="https://twitter.com/login" id="webview" autosize="on"></webview>
+        <webview src="https://messenger.com/login" id="webview" autosize="on"></webview>
     </div>
 
     <!--------------------------------------------------------- Settings panel ----------------------------------------------------------!-->
@@ -69,7 +69,7 @@
                 <td>
                     <ul class="choice-list" id="list_1">
                         <li class="checkbox check" onclick="$('#accountModal').attr('data-visible','true');"></li>
-                        <li class="checkbox cross" onclick="resetLoginAndPassword(); 
+                        <li class="checkbox cross" onclick="resetLoginAndPassword();
                                                             if(!$('#list_2 .cross').hasClass('is-checked'))
                                                                 $('#list_2 .cross').click();"></li>
                     </ul>
@@ -116,17 +116,22 @@
 
 
     <!--------------------------------------------------------- Script part & JQuery ----------------------------------------------------------!-->   
-    <script src="./main.js"></script>
+<!--    <script src="./main.js"></script>-->
     <script>
         window.$ = window.jQuery = window.jquery = require("./js/jquery-3.1.1.min.js");
     </script>
     <!--------------------------------------------------------- Display gracefully the webview ----------------------------------------------------------!-->
     <script>
+		const fs = require('fs');
+		const dir = __dirname;
+		const path = require('path');
+		const filePath = 'file://' + dir;
         document.addEventListener("DOMContentLoaded", function(event) {
             var webview = document.getElementById('webview');
             // This line removes the right sidebar
-            webview.executeJavaScript("$('._4_j5').addClass('hidden_elem_4_j5').removeClass('_4_j5');");
+
             webview.addEventListener('dom-ready', function handle(error, data) {
+				// webview.executeJavaScript("$('._4_j5').addClass('hidden_elem_4_j5').removeClass('_4_j5');");
                 fs.readFile(dir + '/css/webview.css', 'utf-8', function(error, data) {
                     if (!error) {
                         webview.insertCSS(data);

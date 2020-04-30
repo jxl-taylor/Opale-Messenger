@@ -102,7 +102,7 @@ body {
 
 .windowControls {
     color: white;
-    margin-top: -25px;
+    margin-top: -6px;
     display: inline-block;
     z-index: 1;
     position: absolute;
@@ -121,7 +121,7 @@ body {
 
 .windowSettings {
     color: white;
-    margin-top: -25px;
+    margin-top: -3px;
     display: inline-block;
     position: absolute;
     left: 5px;
