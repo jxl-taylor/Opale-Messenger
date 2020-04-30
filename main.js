@@ -9,6 +9,7 @@ const {app, globalShortcut, ipcMain, BrowserWindow, Tray, Menu} = require('elect
 const w = 530;
 const h = 480;
 var posExplicitlyChanged = false;
+var posBubbleChanged = false;
 
 // For the bubble
 const bW = 80;
@@ -63,14 +64,17 @@ function createMain() {
 
 	// IPC PART
 	ipcMain.on('toggle-window', () => {
-		if (mainWindow.isVisible()) {
-			mainWindow.hide();
-		} else {
-			if (!posExplicitlyChanged) deduceNewWindowPos();
-			mainWindow.unmaximize();
-			mainWindow.show();
-			mainWindow.focus();
+		if(!posBubbleChanged && bubble.isFocused()){
+			if (mainWindow.isVisible()) {
+				mainWindow.show();
+			} else {
+				if (!posExplicitlyChanged) deduceNewWindowPos();
+				mainWindow.unmaximize();
+				mainWindow.show();
+				mainWindow.focus();
+			}
 		}
+		posBubbleChanged = false;
 	});
 
 
@@ -86,13 +90,22 @@ function createMain() {
 		if (!posExplicitlyChanged) posExplicitlyChanged = true;
 	});
 
+	ipcMain.on('bubble-position-changed', () => {
+		if (!posBubbleChanged) posBubbleChanged = true;
+	});
+
 	ipcMain.on('maximize-window', () => {
 		mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize();
 	});
 
-	ipcMain.on('reset-window-pos', () => {
+	ipcMain.on('minimize-window', () => {
+		mainWindow.minimize();
+	});
+
+	ipcMain.on('close-window', () => {
 		posExplicitlyChanged = false;
-		mainWindow.unmaximize();
+		posBubbleChanged = false;
+		mainWindow.hide();
 	});
 
 
@@ -237,6 +250,7 @@ function deduceNewWindowPos() {
 }
 
 function createMainWindow() {
+	//如果任务栏要显示窗口，需要skipTaskbar 、type 都去掉
 	mainWindow = new BrowserWindow({
 		width: w,
 		height: h,
@@ -245,8 +259,8 @@ function createMainWindow() {
 		show: false,
 		resizable: true,
 		acceptFirstMouse: true,
-		skipTaskbar: true,
-		type: 'toolbar',
+		// skipTaskbar: true,
+		// type: 'toolbar',
 		webPreferences: {
 			webviewTag: true,
 			nodeIntegration: true
@@ -257,10 +271,10 @@ function createMainWindow() {
 	mainWindow.setMenu(null);
 
 	// This event is triggered when the window is unfocused
-	mainWindow.on('blur', () => {
-		if (!bubble.isFocused())
-			bubble.webContents.send('hide-window');
-	});
+	// mainWindow.on('blur', () => {
+	// 	if (!bubble.isFocused())
+	// 		bubble.webContents.send('hide-window');
+	// });
 
 	// This event is triggered when the window is focused
 	mainWindow.on('focus', () => {
@@ -271,13 +285,11 @@ function createMainWindow() {
 	mainWindow.on('close', function (event) {
 		if (bubble != null) {
 			event.preventDefault();
-			mainWindow.blur();
+			mainWindow.hide();
 			bubble.blur();
 			posExplicitlyChanged = false;
 		}
 	});
-
-	mainWindow.webContents.openDevTools()
 }
 
 function buildContextMenu() {

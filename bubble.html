@@ -30,7 +30,6 @@
 
 
     <!--------------------------------------------------------- Script part & JQuery ----------------------------------------------------------!-->
-    <script src="./main.js"></script>
     <script>
         window.$ = window.jQuery = window.jquery = require("./js/jquery-3.1.1.min.js");
     </script>
@@ -87,6 +86,8 @@
                 var yLoc = e.screenY - wY;
                 try {
                     remote.BrowserWindow.getFocusedWindow().setPosition(xLoc, yLoc);
+					const {ipcRenderer} = require('electron');
+					ipcRenderer.send('bubble-position-changed');
                 } catch (err) {}
             }
         });
@@ -95,6 +96,7 @@
             dragging = false;
             buttonClicked = false;
         });
+
     </script>
 
 
