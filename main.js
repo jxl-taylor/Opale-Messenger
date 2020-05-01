@@ -14,6 +14,8 @@ var posBubbleChanged = false;
 // For the bubble
 const bW = 80;
 const bH = 80;
+const bPosX = 600;
+const bPosY = 400;
 
 // For useful things
 const dir = __dirname;
@@ -144,8 +146,8 @@ app.on('ready', function () {
 		app.dock.hide();
 
 	bubble = new BrowserWindow({
-		x: 1280,
-		y: 680,
+		x: bPosX,
+		y: bPosY,
 		width: bW,
 		height: bH,
 		maxWidth: bW,
@@ -224,6 +226,13 @@ app.on('window-all-closed', () => {
 app.on('will-quit', () => {
 	globalShortcut.unregisterAll();
 });
+
+console.info("1111111111111111");
+
+//启动定时器
+setInterval(function(){
+	console.info("1111111111111111");
+},3000);
 
 function deduceNewWindowPos() {
 	const {

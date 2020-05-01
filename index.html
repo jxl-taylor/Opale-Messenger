@@ -35,23 +35,14 @@
         <button class="fa fa-bars" aria-hidden="true" onclick="toggled = !toggled;
                                                                        if(!toggled)
                                                                         $('#settingsPanel').removeClass('animated slideInLeft').addClass('animated slideOutLeft');
-                                                                       else             
+                                                                       else
                                                                         $('#settingsPanel').removeClass('animated slideOutLeft invisible').addClass('animated slideInLeft');"></button>
     </div>
 </div>
 
 <!--------------------------------------------------------- Loader ----------------------------------------------------------!-->
 <div class="loader-inside" id="loader">
-    <div class="loader-small-circles">
-    </div>
-    <div class="loader-small-circles">
-    </div>
-    <div class="loader-small-circles">
-    </div>
-    <div class="loader-small-circles">
-    </div>
-    <div class="loader-small-circles">
-    </div>
+    <div class="loader-small-circles"></div>
 </div>
 
 <!--------------------------------------------------------- Webview ----------------------------------------------------------!-->
@@ -70,7 +61,7 @@
             <td class="controlTitle">Remember my account informations</td>
             <td>
                 <ul class="choice-list" id="list_1">
-                    <li class="checkbox check" onclick="$('#accountModal').attr('data-visible','true');"></li>
+                    <li class="checkbox check" onclick="$('#accountModal').attr('data-visible','true'); $('.wrong-credentials').hide();"></li>
                     <li class="checkbox cross" onclick="resetLoginAndPassword();
                                                             if(!$('#list_2 .cross').hasClass('is-checked'))
                                                                 $('#list_2 .cross').click();"></li>
@@ -98,19 +89,25 @@
     <div>
         <div class="login-page">
             <button id="closeAccountModal" onclick="$('#accountModal').attr('data-visible','false');
-                                                        if(!storeLoginAndPassword($('#login').val(),$('#pwd').val())) 
+                                                        if(!storeLoginAndPassword($('#iSerialNo').val(),
+                                                                            $('#iMail').val(),
+                                                                            $('#iNick').val()))
                                                             $('#list_1 .cross').click();
                                                         ">&times;
             </button>
             <div class="form">
-                <form onsubmit="return false" class="login-form">
-                    <label>Your account informations</label>
-                    <input type="text" placeholder="Username or Phone number" id="login"/>
-                    <input type="password" placeholder="password" id="pwd"/>
-                    <button type="submit" onclick="$('#accountModal').attr('data-visible','false');
-                                                        if(!storeLoginAndPassword($('#login').val(),$('#pwd').val())) 
-                                                        $('#list_1 .cross').click();
-                                                        ">Save
+                <form onsubmit="return false">
+                    <label>您的信息</label>
+                    <input type="text" placeholder="账号" id="iSerialNo"/>
+                    <input type="text" placeholder="邮箱" id="iMail"/>
+                    <input type="text" placeholder="昵称" id="iNick"/>
+                    <span class="wrong-credentials"></span>
+                    <button type="submit" onclick="if(!storeLoginAndPassword($('#iSerialNo').val(),
+                                                                            $('#iMail').val(),
+                                                                            $('#iNick').val()))
+                                                        $('#list_1 .cross').click(); else
+                                                        	$('#accountModal').attr('data-visible','false');
+                                                        ">保存
                     </button>
                 </form>
             </div>
@@ -184,18 +181,22 @@
 <script src="./js/settings.js"></script>
 <script>
 	// Remember account informations
-	settings.get('User.Username').then(val => {
+	settings.get('User.SerialNo').then(val => {
 		if (val == 'null')
 			$('#list_1 .cross').addClass('is-checked');
 		else {
 			$('#list_1 .check').addClass('is-checked');
-			fillInAccountInformations();
-			settings.get('User.Username').then(user => {
-				var username = user;
-				settings.get('User.Password').then(pass => {
-					var password = pass;
-					$('#login').val(username);
-					$('#pwd').val(password);
+			// fillInAccountInformations();
+			settings.get('User.SerialNo').then(sNo => {
+				var serialNo = sNo;
+				settings.get('User.Mail').then(sMa => {
+					var mail = sMa;
+					settings.get('User.Nick').then(sNi => {
+						var nick = sNi;
+						$('#iSerialNo').val(serialNo);
+						$('#iMail').val(mail);
+						$('#iNick').val(nick);
+					})
 				});
 			});
 		}
@@ -207,9 +208,6 @@
 			$('#list_2 .cross').addClass('is-checked');
 		else {
 			$('#list_2 .check').addClass('is-checked');
-			setTimeout(function () {
-				logAccount();
-			}, 500);
 		}
 	});
 </script>

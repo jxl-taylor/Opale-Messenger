@@ -94,7 +94,7 @@ body {
     font-weight: bolder;
     text-align: center;
     z-index: 0;
-    cursor:default;
+    cursor: default;
     -webkit-user-select: none;
 }
 
@@ -195,8 +195,8 @@ button {
     left: 3px;
     top: 41px;
     background: #2c3e50;
-    -webkit-user-select:none;
-    cursor:default;
+    -webkit-user-select: none;
+    cursor: default;
 }
 
 .invisible {
@@ -356,7 +356,7 @@ button {
 
 .modal > div {
     max-width: 400px;
-    height: 420px;
+    height: 450px;
     position: relative;
     margin: 1% auto;
     border-radius: 10px;
@@ -401,7 +401,7 @@ button {
     z-index: 1;
     background: rgba(44, 62, 80, 1.0);
     max-width: 360px;
-    padding: 45px;
+    padding: 30px;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -413,11 +413,17 @@ button {
     width: 100%;
     border: 1px solid white;
     margin: 0 0 15px;
-    padding: 15px;
+    padding: 10px;
     box-sizing: border-box;
     font-size: 18px;
     text-align: center;
     color: white;
+}
+
+.wrong-credentials {
+    display: none;
+    color: red;
+    background: transparent;
 }
 
 .form button {
@@ -427,7 +433,7 @@ button {
     background: rgba(230, 126, 34, 1.0);
     border: 1px solid rgba(230, 126, 34, 1.0);
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     color: #FFFFFF;
     font-size: 21px;
     transition: all 0.5s ease;
@@ -513,8 +519,9 @@ button {
     .settingsControls {
         font-size: 0.75em;
     }
+
     .checkbox {
         transform: scale(0.75);
-        margin:-1px;
+        margin: -1px;
     }
 }
