@@ -67,6 +67,8 @@ function createMain() {
 	// IPC PART
 	ipcMain.on('toggle-window', () => {
 		if(!posBubbleChanged && bubble.isFocused()){
+			mainWindow.webContents.reload();
+			bubble.webContents.send('message-read');
 			if (mainWindow.isVisible()) {
 				mainWindow.show();
 			} else {
@@ -74,6 +76,7 @@ function createMain() {
 				mainWindow.unmaximize();
 				mainWindow.show();
 				mainWindow.focus();
+
 			}
 		}
 		posBubbleChanged = false;
@@ -227,11 +230,11 @@ app.on('will-quit', () => {
 	globalShortcut.unregisterAll();
 });
 
-console.info("1111111111111111");
 
 //启动定时器
 setInterval(function(){
 	console.info("1111111111111111");
+	bubble.webContents.send('message-received', 1);
 },3000);
 
 function deduceNewWindowPos() {
@@ -299,6 +302,7 @@ function createMainWindow() {
 			posExplicitlyChanged = false;
 		}
 	});
+	// mainWindow.webContents.openDevTools();
 }
 
 function buildContextMenu() {

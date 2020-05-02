@@ -210,9 +210,10 @@
 
 	// AutoLog
 	settings.get('AutoLog').then(val => {
-		if (val == 'false')
+		if (val == 'false') {
 			$('#list_2 .cross').addClass('is-checked');
-		else {
+			$('#list_1 .check').click();
+		} else {
 			$('#list_2 .check').addClass('is-checked');
 		}
 	});

@@ -24,7 +24,7 @@
             <button class="fa">
                 <a class="drag-element"><img src="images/税帐同步机器人.png"></a>
             </button>
-            <div class="badge">15</div>
+            <div id="messageBadge" class="badge"></div>
         </div>
     </div>
 
@@ -64,6 +64,15 @@
         ipcRenderer.on('hide-window', () => {
             $('button').click();
         });
+		ipcRenderer.on('message-read', () => {
+			$('#messageBadge').html(0);
+			$('#messageBadge').hide();
+		});
+		ipcRenderer.on('message-received',  (event, arg) => {
+			$('#messageBadge').show("slow");
+			let count = $('#messageBadge').html()? parseInt($('#messageBadge').html()) : 0;
+			$('#messageBadge').html(count + arg);
+		});
     </script>
     <!--------------------------------------------------------- Handle bubble drag ----------------------------------------------------------!-->
     <script>
@@ -96,6 +105,14 @@
             dragging = false;
             buttonClicked = false;
         });
+
+    </script>
+
+    <script src="./js/settings.js"></script>
+
+    <script>
+        $('#messageBadge').show("slow");
+		$('#messageBadge').html('20');
 
     </script>
 
