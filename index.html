@@ -61,7 +61,8 @@
             <td class="controlTitle">Remember my account informations</td>
             <td>
                 <ul class="choice-list" id="list_1">
-                    <li class="checkbox check" onclick="$('#accountModal').attr('data-visible','true'); $('.wrong-credentials').hide();"></li>
+                    <li class="checkbox check"
+                        onclick="$('#accountModal').attr('data-visible','true'); $('#userErr').hide();"></li>
                     <li class="checkbox cross" onclick="resetLoginAndPassword();
                                                             if(!$('#list_2 .cross').hasClass('is-checked'))
                                                                 $('#list_2 .cross').click();"></li>
@@ -88,11 +89,12 @@
 <div id="accountModal" class="modal" data-visible="false">
     <div>
         <div class="login-page">
-            <button id="closeAccountModal" onclick="$('#accountModal').attr('data-visible','false');
-                                                        if(!storeLoginAndPassword($('#iSerialNo').val(),
-                                                                            $('#iMail').val(),
-                                                                            $('#iNick').val()))
-                                                            $('#list_1 .cross').click();
+            <button id="closeAccountModal" onclick="if(serialNo){
+            	                                            $('#accountModal').attr('data-visible','false');
+            	                                            $('#iSerialNo').val(serialNo);
+            	                                            $('#iMail').val(mail);
+            	                                            $('#iNick').val(nick);
+            	                                        }
                                                         ">&times;
             </button>
             <div class="form">
@@ -101,12 +103,15 @@
                     <input type="text" placeholder="账号" id="iSerialNo"/>
                     <input type="text" placeholder="邮箱" id="iMail"/>
                     <input type="text" placeholder="昵称" id="iNick"/>
-                    <span class="wrong-credentials"></span>
-                    <button type="submit" onclick="if(!storeLoginAndPassword($('#iSerialNo').val(),
+                    <span id="userErr" class="wrong-credentials"></span>
+                    <button type="submit" onclick="if(storeLoginAndPassword($('#iSerialNo').val(),
                                                                             $('#iMail').val(),
-                                                                            $('#iNick').val()))
-                                                        $('#list_1 .cross').click(); else
-                                                        	$('#accountModal').attr('data-visible','false');
+                                                                            $('#iNick').val())){
+                    	                                    serialNo = $('#iSerialNo').val();
+                    	                                    mail = $('#iMail').val();
+                                                            nick = $('#iNick').val();
+                                                            $('#accountModal').attr('data-visible','false');
+                                                         }
                                                         ">保存
                     </button>
                 </form>
@@ -163,6 +168,9 @@
 <!--------------------------------------------------------- Variable kept for the Settings menu ----------------------------------------------------------!-->
 <script>
 	toggled = false;
+	serialNo = '';
+	mail = '';
+	nick = '';
 </script>
 
 <!--------------------------------------------------------- Toggle class on checkboxes ----------------------------------------------------------!-->
@@ -182,22 +190,20 @@
 <script>
 	// Remember account informations
 	settings.get('User.SerialNo').then(val => {
-		if (val == 'null')
+		if (val == 'null') {
 			$('#list_1 .cross').addClass('is-checked');
-		else {
+			$('#list_1 .check').click();
+		} else {
 			$('#list_1 .check').addClass('is-checked');
-			// fillInAccountInformations();
-			settings.get('User.SerialNo').then(sNo => {
-				var serialNo = sNo;
-				settings.get('User.Mail').then(sMa => {
-					var mail = sMa;
-					settings.get('User.Nick').then(sNi => {
-						var nick = sNi;
-						$('#iSerialNo').val(serialNo);
-						$('#iMail').val(mail);
-						$('#iNick').val(nick);
-					})
-				});
+			serialNo = val;
+			settings.get('User.Mail').then(sMa => {
+				mail = sMa;
+				settings.get('User.Nick').then(sNi => {
+					nick = sNi;
+					$('#iSerialNo').val(serialNo);
+					$('#iMail').val(mail);
+					$('#iNick').val(nick);
+				})
 			});
 		}
 	});

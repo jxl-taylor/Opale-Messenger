@@ -30,8 +30,8 @@ function logAccount() {
 function storeLoginAndPassword(serialNo, mail, nick) {
 	//todo
 	if (serialNo.length != 3) {
-		$('.wrong-credentials').show("slow");
-		$('.wrong-credentials').html('手机号码有误！');
+		$('#userErr').show("slow");
+		$('#userErr').html('手机号码有误！');
 		return false;
 	}
 
