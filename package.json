@@ -1,29 +1,31 @@
 {
-    "name": "Opale",
-    "version": "2.0.0",
-    "description": "A new way to chat online with Messenger.",
-    "main": "main.js",
-    "scripts": {
-        "start": "electron ."
-    },
-    "keywords": [
-        "Opale",
-        "Messenger",
-        "Transparent",
-        "Wrapper"
-    ],
-    "author": "David Mellul",
-    "license": "MIT",
-    "devDependencies": {
-        "electron": "^8.2.3",
-        "electron-packager": "^13.1.1",
-        "electron-rebuild": "^1.10.1",
-        "electron-settings": "^2.2.2",
-        "electron-context-menu": "^1.1.0"
-    },
-    "dependencies": {
-        "electron-context-menu": "^1.1.0",
-        "electron-settings": "^2.2.2"
-    },
-    "productName": "Opale"
+  "name": "Opale",
+  "version": "2.0.0",
+  "description": "A new way to chat online with Messenger.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "Opale",
+    "Messenger",
+    "Transparent",
+    "Wrapper"
+  ],
+  "author": "David Mellul",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^8.2.3",
+    "electron-packager": "^13.1.1",
+    "electron-rebuild": "^1.10.1",
+    "electron-settings": "^2.2.2",
+    "electron-context-menu": "^1.1.0",
+    "axios": "^0.19.1"
+  },
+  "dependencies": {
+    "electron-context-menu": "^1.1.0",
+    "electron-settings": "^2.2.2",
+    "axios": "^0.19.1"
+  },
+  "productName": "Opale"
 }

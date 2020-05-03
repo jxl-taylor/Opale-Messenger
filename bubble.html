@@ -72,6 +72,16 @@
 			$('#messageBadge').show("slow");
 			let count = $('#messageBadge').html()? parseInt($('#messageBadge').html()) : 0;
 			$('#messageBadge').html(count + arg);
+			let myNotification = new Notification('RPA消息', {
+				body: '通知消息正文：对账任务，请处理。',
+				title:"Hello",
+				icon:'./images/税帐同步机器人.png',
+				// To prevent sound
+				//silent:true,
+			});
+			myNotification.addEventListener("click",function(){
+				ipcRenderer.send('read-message');
+			},false);
 		});
     </script>
     <!--------------------------------------------------------- Handle bubble drag ----------------------------------------------------------!-->
@@ -109,13 +119,6 @@
     </script>
 
     <script src="./js/settings.js"></script>
-
-    <script>
-        $('#messageBadge').show("slow");
-		$('#messageBadge').html('20');
-
-    </script>
-
 
 </body>
 

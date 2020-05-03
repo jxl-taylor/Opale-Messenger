@@ -5,6 +5,8 @@
  */
 // const electron = require('electron');
 const {app, globalShortcut, ipcMain, BrowserWindow, Tray, Menu} = require('electron');
+const axios = require("axios");
+
 // For the window
 const w = 530;
 const h = 480;
@@ -21,7 +23,6 @@ const bPosY = 400;
 const dir = __dirname;
 const path = require('path');
 const filePath = 'file://' + dir;
-
 
 /*
  *
@@ -82,6 +83,15 @@ function createMain() {
 		posBubbleChanged = false;
 	});
 
+
+	ipcMain.on('read-message', (event, arg) => {
+		mainWindow.webContents.reload();
+		bubble.webContents.send('message-read');
+		if (!mainWindow.isVisible()) {
+			mainWindow.show();
+		}
+		mainWindow.focus();
+	});
 
 	ipcMain.on('new-message', (event, arg) => {
 		if (mainWindow != null && !mainWindow.isFocused()) bubble.webContents.send('new-message', arg);
@@ -232,10 +242,20 @@ app.on('will-quit', () => {
 
 
 //启动定时器
-setInterval(function(){
-	console.info("1111111111111111");
-	bubble.webContents.send('message-received', 1);
-},3000);
+setInterval(async function(){
+	let res =  await heartbeat();
+	console.info(JSON.stringify(res));
+	bubble.webContents.send('message-received', res.messageNum);
+},5000);
+
+async function heartbeat() {
+	let response = await axios({
+		method: "POST",
+		url : "http://localhost:8080/api/assit",
+		data: {}
+	})
+	return response.data;
+}
 
 function deduceNewWindowPos() {
 	const {
