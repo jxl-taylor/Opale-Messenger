@@ -89,30 +89,19 @@
 <div id="accountModal" class="modal" data-visible="false">
     <div>
         <div class="login-page">
-            <button id="closeAccountModal" onclick="if(serialNo){
-            	                                            $('#accountModal').attr('data-visible','false');
-            	                                            $('#iSerialNo').val(serialNo);
-            	                                            $('#iMail').val(mail);
-            	                                            $('#iNick').val(nick);
-            	                                        }
-                                                        ">&times;
+            <button id="closeAccountModal" onclick="initData();
+                                                    $('#accountModal').attr('data-visible','false');"
+                                                >&times;
             </button>
             <div class="form">
                 <form onsubmit="return false">
                     <label>您的信息</label>
+                    <input type="text" placeholder="控制中心地址" id="iCtlUrl"/>
                     <input type="text" placeholder="账号" id="iSerialNo"/>
                     <input type="text" placeholder="邮箱" id="iMail"/>
                     <input type="text" placeholder="昵称" id="iNick"/>
                     <span id="userErr" class="wrong-credentials"></span>
-                    <button type="submit" onclick="if(storeLoginAndPassword($('#iSerialNo').val(),
-                                                                            $('#iMail').val(),
-                                                                            $('#iNick').val())){
-                    	                                    serialNo = $('#iSerialNo').val();
-                    	                                    mail = $('#iMail').val();
-                                                            nick = $('#iNick').val();
-                                                            $('#accountModal').attr('data-visible','false');
-                                                         }
-                                                        ">保存
+                    <button type="button" onclick="save()">保存
                     </button>
                 </form>
             </div>
@@ -169,8 +158,24 @@
 <script>
 	toggled = false;
 	serialNo = '';
+	ctlUrl = '';
 	mail = '';
 	nick = '';
+
+	async function save() {
+		let ctlRes = await setCtlUrl();
+		if (!ctlRes) return;
+		if (storeLoginAndPassword($('#iSerialNo').val(),
+			$('#iCtlUrl').val(),
+			$('#iMail').val(),
+			$('#iNick').val())) {
+			$('#accountModal').attr('data-visible', 'false');
+			serialNo = $('#iSerialNo').val();
+			ctlUrl = $('#iCtlUrl').val();
+			mail = $('#iMail').val();
+			nick = $('#iNick').val();
+		}
+	}
 </script>
 
 <!--------------------------------------------------------- Toggle class on checkboxes ----------------------------------------------------------!-->
@@ -189,24 +194,26 @@
 <script src="./js/settings.js"></script>
 <script>
 	// Remember account informations
-	settings.get('User.SerialNo').then(val => {
-		if (val == 'null') {
-			$('#list_1 .cross').addClass('is-checked');
-			$('#list_1 .check').click();
-		} else {
-			$('#list_1 .check').addClass('is-checked');
-			serialNo = val;
-			settings.get('User.Mail').then(sMa => {
-				mail = sMa;
-				settings.get('User.Nick').then(sNi => {
-					nick = sNi;
-					$('#iSerialNo').val(serialNo);
-					$('#iMail').val(mail);
-					$('#iNick').val(nick);
-				})
-			});
-		}
-	});
+	initData();
+    function initData(){
+		settings.get('User.SerialNo').then(async val => {
+			let serialNo;
+			if (val == 'null') {
+				$('#list_1 .cross').addClass('is-checked');
+				$('#list_1 .check').click();
+			} else {
+				$('#list_1 .check').addClass('is-checked');
+				serialNo = val;
+				let ctlUrl = await settings.get('User.CtlUrl');
+				let mail = await settings.get('User.Mail');
+				let nick = await settings.get('User.Nick');
+				$('#iSerialNo').val(serialNo);
+				$('#iCtlUrl').val(ctlUrl);
+				$('#iMail').val(mail);
+				$('#iNick').val(nick);
+			}
+		});
+    }
 
 	// AutoLog
 	settings.get('AutoLog').then(val => {

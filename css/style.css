@@ -413,9 +413,9 @@ button {
     width: 100%;
     border: 1px solid white;
     margin: 0 0 15px;
-    padding: 10px;
+    padding: 8px;
     box-sizing: border-box;
-    font-size: 18px;
+    font-size: 14px;
     text-align: center;
     color: white;
 }
@@ -423,6 +423,7 @@ button {
 .wrong-credentials {
     display: none;
     color: red;
+    font-size: 14px;
     background: transparent;
 }
 
@@ -433,9 +434,9 @@ button {
     background: rgba(230, 126, 34, 1.0);
     border: 1px solid rgba(230, 126, 34, 1.0);
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     color: #FFFFFF;
-    font-size: 21px;
+    font-size: 14px;
     transition: all 0.5s ease;
     cursor: pointer;
     margin: 3px;

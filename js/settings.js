@@ -1,33 +1,37 @@
 const settings = require('electron-settings');
+const request = require("axios");
 
 // Defaults value for every functionality
 settings.defaults({
 	User: {
 		SerialNo: 'null',
+		CtlUrl: 'null',
 		Mail: 'null',
 		Nick: 'null'
 	},
 	AutoLog: 'false',
 });
 
-// Fill inputs with account informations
-function fillInAccountInformations() {
-	settings.get('User.Username').then(user => {
-		var username = user;
-		settings.get('User.Password').then(pass => {
-			var password = pass;
-			webview.executeJavaScript("document.getElementById('email').value ='" + username + "';");
-			webview.executeJavaScript("document.getElementById('pass').value ='" + password + "';");
-		});
-	});
+async function setCtlUrl() {
+	let hbRes = await requsetCtl($('#iCtlUrl').val());
+	console.info(JSON.stringify(hbRes));
+	if (!hbRes) {
+		$('#userErr').html('控制中心地址无法连接');
+		$('#userErr').show("slow");
+		$('#iCtlUrl').focus();
+		return false;
+	} else {
+		$('#userErr').hide();
+		return true;
+	}
 }
 
-// Same as before, and click on the login-button
-function logAccount() {
-	webview.executeJavaScript("document.getElementById('loginbutton').click();");
-}
-
-function storeLoginAndPassword(serialNo, mail, nick) {
+function storeLoginAndPassword(serialNo, ctlUrl, mail, nick) {
+	if (!ctlUrl) {
+		$('#userErr').show("slow");
+		$('#userErr').html('控制中心地址必填！');
+		return false;
+	}
 	//todo
 	if (serialNo.length != 3) {
 		$('#userErr').show("slow");
@@ -38,6 +42,7 @@ function storeLoginAndPassword(serialNo, mail, nick) {
 	if (mail && nick) {
 		settings.set('User', {
 			'SerialNo': serialNo,
+			'CtlUrl': ctlUrl,
 			'Mail': mail,
 			'Nick': nick
 		});
@@ -51,6 +56,7 @@ function storeLoginAndPassword(serialNo, mail, nick) {
 function resetLoginAndPassword() {
 	settings.set('User', {
 		'SerialNo': 'null',
+		'CtlUrl': 'null',
 		'Mail': 'null',
 		'Nick': 'null'
 	});
@@ -60,3 +66,27 @@ function resetLoginAndPassword() {
 function setAutoLog(enabled) {
 	settings.set('AutoLog', enabled);
 }
+
+async function heartbeat() {
+	let ctlUrl = await settings.get('User.CtlUrl');
+	console.info(ctlUrl);
+	if (!ctlUrl || ctlUrl === 'null') return '';
+	return await requsetCtl(ctlUrl);
+}
+
+async function requsetCtl(sCtlUrl) {
+	let res = null;
+	try {
+		res = await request({
+			method: "POST",
+			url: `${sCtlUrl}/api/assit`,
+			data: {}
+		});
+	} catch (e) {
+		console.error(e);
+	}
+
+	return res && res.data ? res.data : '';
+}
+
+module.exports = {heartbeat}

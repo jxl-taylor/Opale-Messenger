@@ -5,7 +5,7 @@
  */
 // const electron = require('electron');
 const {app, globalShortcut, ipcMain, BrowserWindow, Tray, Menu} = require('electron');
-const axios = require("axios");
+const {heartbeat} = require("./js/settings");
 
 // For the window
 const w = 530;
@@ -243,19 +243,17 @@ app.on('will-quit', () => {
 
 //启动定时器
 setInterval(async function(){
-	let res =  await heartbeat();
-	console.info(JSON.stringify(res));
-	bubble.webContents.send('message-received', res.messageNum);
-},5000);
-
-async function heartbeat() {
-	let response = await axios({
-		method: "POST",
-		url : "http://localhost:8080/api/assit",
-		data: {}
-	})
-	return response.data;
-}
+	try{
+		let res =  await heartbeat();
+		if(!res) console.warn('控制中心未配置');
+		else {
+			console.info(JSON.stringify(res));
+			bubble.webContents.send('message-received', res.messageNum);
+		}
+	}catch (err) {
+		console.error(err);
+	}
+},15000);
 
 function deduceNewWindowPos() {
 	const {
@@ -322,7 +320,7 @@ function createMainWindow() {
 			posExplicitlyChanged = false;
 		}
 	});
-	// mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
 }
 
 function buildContextMenu() {
