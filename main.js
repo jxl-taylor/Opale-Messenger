@@ -5,7 +5,7 @@
  */
 // const electron = require('electron');
 const {app, globalShortcut, ipcMain, BrowserWindow, Tray, Menu} = require('electron');
-const {heartbeat} = require("./js/settings");
+const myCommon = require("./js/common");
 
 // For the window
 const w = 530;
@@ -244,7 +244,7 @@ app.on('will-quit', () => {
 //启动定时器
 setInterval(async function(){
 	try{
-		let res =  await heartbeat();
+		let res =  await myCommon.heartbeat();
 		if(!res) console.warn('控制中心未配置');
 		else {
 			console.info(JSON.stringify(res));

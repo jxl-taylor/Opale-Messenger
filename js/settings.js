@@ -1,5 +1,5 @@
 const settings = require('electron-settings');
-const request = require("axios");
+const myCommon = require("./js/common");
 
 // Defaults value for every functionality
 settings.defaults({
@@ -13,7 +13,7 @@ settings.defaults({
 });
 
 async function setCtlUrl() {
-	let hbRes = await requsetCtl($('#iCtlUrl').val());
+	let hbRes = await myCommon.requsetCtl($('#iCtlUrl').val());
 	console.info(JSON.stringify(hbRes));
 	if (!hbRes) {
 		$('#userErr').html('控制中心地址无法连接');
@@ -67,26 +67,3 @@ function setAutoLog(enabled) {
 	settings.set('AutoLog', enabled);
 }
 
-async function heartbeat() {
-	let ctlUrl = await settings.get('User.CtlUrl');
-	console.info(ctlUrl);
-	if (!ctlUrl || ctlUrl === 'null') return '';
-	return await requsetCtl(ctlUrl);
-}
-
-async function requsetCtl(sCtlUrl) {
-	let res = null;
-	try {
-		res = await request({
-			method: "POST",
-			url: `${sCtlUrl}/api/assit`,
-			data: {}
-		});
-	} catch (e) {
-		console.error(e);
-	}
-
-	return res && res.data ? res.data : '';
-}
-
-module.exports = {heartbeat}
