@@ -89,8 +89,7 @@
 <div id="accountModal" class="modal" data-visible="false">
     <div>
         <div class="login-page">
-            <button id="closeAccountModal" onclick="initData();
-                                                    if($('#iCtlUrl')) $('#accountModal').attr('data-visible','false');"
+            <button id="closeAccountModal" onclick="closeAccount()"
                                                 >&times;
             </button>
             <div class="form">
@@ -195,35 +194,37 @@
 <script>
 	// Remember account informations
 	initData();
-    function initData(){
-		settings.get('User.SerialNo').then(async val => {
-			let serialNo;
-			if (val == 'null') {
-				$('#list_1 .cross').addClass('is-checked');
-				$('#list_1 .check').click();
-			} else {
-				$('#list_1 .check').addClass('is-checked');
-				serialNo = val;
-				let ctlUrl = await settings.get('User.CtlUrl');
-				let mail = await settings.get('User.Mail');
-				let nick = await settings.get('User.Nick');
-				$('#iSerialNo').val(serialNo);
-				$('#iCtlUrl').val(ctlUrl);
-				$('#iMail').val(mail);
-				$('#iNick').val(nick);
-			}
-		});
-    }
-
-	// AutoLog
-	settings.get('AutoLog').then(val => {
+    async function initData(){
+		let val = await settings.get('User.SerialNo');
+		let serialNo;
+		if (val == 'null') {
+			$('#list_1 .cross').addClass('is-checked');
+			$('#list_1 .check').click();
+		} else {
+			$('#list_1 .check').addClass('is-checked');
+			serialNo = val;
+			let ctlUrl = await settings.get('User.CtlUrl');
+			let mail = await settings.get('User.Mail');
+			let nick = await settings.get('User.Nick');
+			$('#iSerialNo').val(serialNo);
+			$('#iCtlUrl').val(ctlUrl);
+			$('#iMail').val(mail);
+			$('#iNick').val(nick);
+		}
+		// AutoLog
+		val = await settings.get('AutoLog');
 		if (val == 'false') {
 			$('#list_2 .cross').addClass('is-checked');
 			$('#list_1 .check').click();
 		} else {
 			$('#list_2 .check').addClass('is-checked');
 		}
-	});
+    }
+
+    async function closeAccount() {
+		await initData();
+		if($('#iCtlUrl').val()) $('#accountModal').attr('data-visible','false');
+	}
 </script>
 <script>
 	const remote = require('electron').remote;

@@ -4,7 +4,7 @@
  *
  */
 // const electron = require('electron');
-const {app, globalShortcut, ipcMain, BrowserWindow, Tray, Menu} = require('electron');
+const {app, globalShortcut, ipcMain, BrowserWindow, Tray, Menu,screen } = require('electron');
 const myCommon = require("./js/common");
 
 // For the window
@@ -16,8 +16,6 @@ var posBubbleChanged = false;
 // For the bubble
 const bW = 80;
 const bH = 80;
-const bPosX = 600;
-const bPosY = 400;
 
 // For useful things
 const dir = __dirname;
@@ -150,6 +148,8 @@ function createMain() {
 	});
 }
 
+
+
 // Triggered when the app is created and ready to use, this one creates the window responsible for displaying the Messenger app
 app.on('ready', createMain);
 
@@ -157,6 +157,10 @@ app.on('ready', createMain);
 app.on('ready', function () {
 	if (process.platform == 'darwin')
 		app.dock.hide();
+
+	let size = screen.getPrimaryDisplay().workAreaSize;
+	let bPosX = parseInt(size.width * 0.9);
+	let bPosY = parseInt(size.height * 0.8);
 
 	bubble = new BrowserWindow({
 		x: bPosX,
@@ -193,14 +197,14 @@ app.on('ready', function () {
 
 	const template = [
 		{
-			label: 'Toggle bubble',
+			label: '小助手',
 			role: 'show',
 			click() {
 				bubble.isVisible() ? bubble.hide() : bubble.show();
 			}
 		},
 		{
-			label: 'Quit',
+			label: '退出',
 			role: 'close',
 			click() {
 				bubble.close();
@@ -280,10 +284,13 @@ function deduceNewWindowPos() {
 }
 
 function createMainWindow() {
+
+	let size = screen.getPrimaryDisplay().workAreaSize;
+
 	//如果任务栏要显示窗口，需要skipTaskbar 、type 都去掉
 	mainWindow = new BrowserWindow({
-		width: w,
-		height: h,
+		width: parseInt(size.width * 0.5),
+		height: parseInt(size.height * 0.7),
 		icon: './images/icone.ico',
 		frame: false,
 		show: false,
@@ -329,13 +336,13 @@ function buildContextMenu() {
 		window: bubble,
 		prepend: (params, window) => [
 			{
-				label: "Hide",
+				label: "隐藏小助手",
 				click() {
 					bubble.hide();
 				}
 			},
 			{
-				label: "Quit",
+				label: "退出",
 				click() {
 					bubble.close();
 				}
