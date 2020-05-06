@@ -4,7 +4,8 @@
   "description": "A new way to chat online with Messenger.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder --win --x64"
   },
   "keywords": [
     "Opale",
@@ -15,19 +16,49 @@
   "author": "David Mellul",
   "license": "MIT",
   "devDependencies": {
+    "asar": "^3.0.3",
     "axios": "^0.19.1",
     "electron": "^8.2.5",
     "electron-context-menu": "^1.1.0",
-    "electron-packager": "^13.1.1",
-    "electron-rebuild": "^1.10.1",
     "electron-settings": "^2.2.2",
-    "asar": "^3.0.3"
+    "electron-builder": "^22.6.0"
   },
   "dependencies": {
     "axios": "^0.19.1",
-    "electron": "^8.2.5",
     "electron-context-menu": "^1.1.0",
     "electron-settings": "^2.2.2"
+  },
+  "build": {
+    "productName": "opale",
+    "appId": "com.rpa.opale",
+    "copyright": "mr",
+    "icon": "images/icone.ico",
+    "directories": {
+      "output": "build"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "images/icone.ico",
+      "uninstallerIcon": "images/icone.ico",
+      "installerHeaderIcon": "images/icone.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "rpa-message"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    }
   },
   "productName": "Opale"
 }

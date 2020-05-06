@@ -320,7 +320,7 @@ function createMainWindow() {
 			posExplicitlyChanged = false;
 		}
 	});
-	mainWindow.webContents.openDevTools();
+	// mainWindow.webContents.openDevTools();
 }
 
 function buildContextMenu() {
