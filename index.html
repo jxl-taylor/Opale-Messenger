@@ -198,6 +198,8 @@
 		let val = await settings.get('User.SerialNo');
 		let serialNo;
 		if (val == 'null') {
+			toggled = false;
+			$('.windowSettings button').click();
 			$('#list_1 .cross').addClass('is-checked');
 			$('#list_1 .check').click();
 		} else {
