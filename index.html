@@ -95,10 +95,23 @@
             <div class="form">
                 <form onsubmit="return false">
                     <label>您的信息</label>
-                    <input type="text" placeholder="控制中心地址" id="iCtlUrl"/>
-                    <input type="text" placeholder="账号" id="iSerialNo"/>
-                    <input type="text" placeholder="邮箱" id="iMail"/>
-                    <input type="text" placeholder="昵称" id="iNick"/>
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input type="text" class="text" placeholder="控制中心地址" id="iCtlUrl" style="color: #FFFFFF !important"/>
+                    </div>
+
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input type="text" placeholder="账号" id="iSerialNo" style="color: #FFFFFF !important"/>
+                    </div>
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input type="text" placeholder="邮箱" id="iMail" style="color: #FFFFFF !important"/>
+                    </div>
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input type="text" placeholder="昵称" id="iNick" style="color: #FFFFFF !important"/>
+                    </div>
                     <span id="userErr" class="wrong-credentials"></span>
                     <button type="button" onclick="save()">保存
                     </button>

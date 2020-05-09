@@ -32,7 +32,7 @@
     "productName": "opale",
     "appId": "com.rpa.opale",
     "copyright": "mr",
-    "icon": "images/icone.ico",
+    "icon": "images/favicon256.ico",
     "directories": {
       "output": "build"
     },
@@ -40,9 +40,9 @@
       "oneClick": false,
       "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
-      "installerIcon": "images/icone.ico",
-      "uninstallerIcon": "images/icone.ico",
-      "installerHeaderIcon": "images/icone.ico",
+      "installerIcon": "images/favicon32.ico",
+      "uninstallerIcon": "images/favicon32.ico",
+      "installerHeaderIcon": "images/favicon32.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "rpa-message"

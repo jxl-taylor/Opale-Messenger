@@ -402,23 +402,43 @@ button {
     z-index: 1;
     background: rgba(44, 62, 80, 1.0);
     max-width: 360px;
-    padding: 30px;
-    text-align: center;
+    padding: 8px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    alignment: center;
 }
 
-.form input {
+.form div {
     font-family: "Roboto", sans-serif;
     outline: 0;
     background: rgba(149, 165, 166, 0.8);
     width: 100%;
     border: 1px solid white;
     margin: 0 0 15px;
-    padding: 8px;
     box-sizing: border-box;
     font-size: 14px;
-    text-align: center;
     color: white;
+    position: relative;
+}
+
+.form div input{
+    width: 180px;
+    height: 36px;
+    outline: none;
+    display: inline-block;
+    font: 14px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei";
+    margin-left: 50px;
+    border: none;
+    background: none;
+    line-height: 46px;
+}
+
+.u_user{
+    width: 25px;
+    height: 25px;
+    background: url(../images/login_ico.png);
+    background-position:  -125px 0;
+    position: absolute;
+    margin: 7px 13px;
 }
 
 .wrong-credentials {
@@ -440,7 +460,7 @@ button {
     font-size: 14px;
     transition: all 0.5s ease;
     cursor: pointer;
-    margin: 3px;
+    margin: 0 0 15px;
 }
 
 .form button:hover,

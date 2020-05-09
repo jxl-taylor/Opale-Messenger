@@ -173,7 +173,7 @@ app.on('ready', function () {
 		show: false,
 		alwaysOnTop: true,
 		type: 'toolbar',
-		icon: './images/icone.ico',
+		icon: './images/favicon256.ico',
 		transparent: true,
 		acceptFirstMouse: true,
 		resizable: false,
@@ -187,12 +187,12 @@ app.on('ready', function () {
 
 	// Tray part. It allows the user to hide/show the bubble, and to quit the application
 	if (process.platform != 'darwin') {
-		tray = new Tray(path.join(__dirname, '/images/tray.png'));
+		tray = new Tray(path.join(__dirname, '/images/faviconTray.ico'));
 		tray.on('click', () => {
 			bubble.isVisible() ? bubble.hide() : bubble.show();
 		});
 	} else
-		tray = new Tray(path.join(__dirname, '/images/osxTray.png'));
+		tray = new Tray(path.join(__dirname, '/images/faviconTray.ico'));
 
 
 	const template = [
@@ -291,7 +291,7 @@ function createMainWindow() {
 	mainWindow = new BrowserWindow({
 		width: parseInt(size.width * 0.5),
 		height: parseInt(size.height * 0.7),
-		icon: './images/icone.ico',
+		icon: './images/favicon256.ico',
 		frame: false,
 		show: false,
 		resizable: true,
