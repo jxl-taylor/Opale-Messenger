@@ -13,7 +13,7 @@ settings.defaults({
 });
 
 async function setCtlUrl() {
-	let hbRes = await myCommon.requsetCtl($('#iCtlUrl').val());
+	let hbRes = await myCommon.requsetCtl($('#iCtlUrl').val() + '/rebotapi/user/bind');
 	console.info(JSON.stringify(hbRes));
 	if (!hbRes) {
 		$('#userErr').html('控制中心地址无法连接');
@@ -32,12 +32,12 @@ function storeLoginAndPassword(serialNo, ctlUrl, mail, nick) {
 		$('#userErr').html('控制中心地址必填！');
 		return false;
 	}
-	//todo
-	if (serialNo.length != 3) {
-		$('#userErr').show("slow");
-		$('#userErr').html('手机号码有误！');
-		return false;
-	}
+	// //todo
+	// if (serialNo.length != 3) {
+	// 	$('#userErr').show("slow");
+	// 	$('#userErr').html('手机号码有误！');
+	// 	return false;
+	// }
 
 	if (mail && nick) {
 		settings.set('User', {

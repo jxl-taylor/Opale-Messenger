@@ -47,7 +47,7 @@
 
 <!--------------------------------------------------------- Webview ----------------------------------------------------------!-->
 <div id="webviewWrapper" class="invisible">
-    <webview src="https://messenger.com/login" id="webview" autosize="on"></webview>
+    <webview src="http://47.100.24.237:18090/im/login" id="webview" autosize="on"></webview>
 </div>
 
 <!--------------------------------------------------------- Settings panel ----------------------------------------------------------!-->
@@ -96,8 +96,8 @@
                 <form onsubmit="return false">
                     <label>您的信息</label>
                     <div class="input_outer">
-                        <span class="u_user"></span>
-                        <input type="text" class="text" placeholder="控制中心地址" id="iCtlUrl" style="color: #FFFFFF !important"/>
+                        <span class="u_ctl"></span>
+                        <input type="text" placeholder="控制中心地址" id="iCtlUrl" style="color: #FFFFFF !important"/>
                     </div>
 
                     <div class="input_outer">
@@ -105,11 +105,11 @@
                         <input type="text" placeholder="账号" id="iSerialNo" style="color: #FFFFFF !important"/>
                     </div>
                     <div class="input_outer">
-                        <span class="u_user"></span>
+                        <span class="u_mail"></span>
                         <input type="text" placeholder="邮箱" id="iMail" style="color: #FFFFFF !important"/>
                     </div>
                     <div class="input_outer">
-                        <span class="u_user"></span>
+                        <span class="u_nick"></span>
                         <input type="text" placeholder="昵称" id="iNick" style="color: #FFFFFF !important"/>
                     </div>
                     <span id="userErr" class="wrong-credentials"></span>

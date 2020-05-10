@@ -5,7 +5,7 @@ async function heartbeat() {
 	let ctlUrl = await settings.get('User.CtlUrl');
 	console.info(ctlUrl);
 	if (!ctlUrl || ctlUrl === 'null') return '';
-	return await requsetCtl(ctlUrl);
+	return await requsetCtl(ctlUrl + '/rebotapi/mlist');
 }
 
 async function requsetCtl(sCtlUrl) {
@@ -13,7 +13,7 @@ async function requsetCtl(sCtlUrl) {
 	try {
 		res = await request({
 			method: "POST",
-			url: `${sCtlUrl}/api/assit`,
+			url: sCtlUrl,
 			data: {}
 		});
 	} catch (e) {

@@ -182,6 +182,7 @@ button {
 #webview {
     width: 100%;
     height: 100%;
+    background: #b3b3b3;
 }
 
 
@@ -357,13 +358,13 @@ button {
 
 .modal > div {
     max-width: 400px;
-    height: 450px;
+    height: 400px;
     position: relative;
     margin: 1% auto;
-    border-radius: 10px;
-    background: #eee;
+    border-radius: 5px;
+    background: #FFFFFF;
     transition: all 0.4s ease-in-out;
-    background: rgba(52, 73, 94, 1.0);
+    background: #FFFFFF;
 }
 
 .modal > div .btn {
@@ -377,7 +378,6 @@ button {
 }
 
 #closeAccountModal {
-    color: white;
     padding: 0px;
     margin: 0px;
     border: none;
@@ -391,7 +391,7 @@ button {
 }
 
 #closeAccountModal:hover {
-    color: black;
+    color: red;
 }
 
 
@@ -400,24 +400,29 @@ button {
 .form {
     position: relative;
     z-index: 1;
-    background: rgba(44, 62, 80, 1.0);
+    background: #FFFFFF;
     max-width: 360px;
     padding: 8px;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     alignment: center;
 }
 
 .form div {
     font-family: "Roboto", sans-serif;
     outline: 0;
-    background: rgba(149, 165, 166, 0.8);
     width: 100%;
-    border: 1px solid white;
+    border: 1px solid #D1D1D1;
     margin: 0 0 15px;
     box-sizing: border-box;
     font-size: 14px;
-    color: white;
+    color: #999999;
     position: relative;
+}
+
+.form div:hover,
+.form div:active,
+.form div:focus {
+    border: 1px solid #07BDFE;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 .form div input{
@@ -427,9 +432,20 @@ button {
     display: inline-block;
     font: 14px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei";
     margin-left: 50px;
-    border: none;
+    border: transparent;
     background: none;
     line-height: 46px;
+    -webkit-text-fill-color: #010101;/*输入文字、placeholder颜色*/
+    caret-color:#010101;
+}
+
+.u_ctl{
+    width: 25px;
+    height: 25px;
+    background: url(../images/login_ico.png);
+    background-position:  -85px -74px;
+    position: absolute;
+    margin: 7px 13px;
 }
 
 .u_user{
@@ -437,6 +453,24 @@ button {
     height: 25px;
     background: url(../images/login_ico.png);
     background-position:  -125px 0;
+    position: absolute;
+    margin: 7px 13px;
+}
+
+.u_mail{
+    width: 25px;
+    height: 25px;
+    background: url(../images/login_ico.png);
+    background-position:  -85px 0;
+    position: absolute;
+    margin: 7px 13px;
+}
+
+.u_nick{
+    width: 25px;
+    height: 25px;
+    background: url(../images/login_ico.png);
+    background-position:  -85px -35px;
     position: absolute;
     margin: 7px 13px;
 }
@@ -452,12 +486,12 @@ button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
-    background: rgba(230, 126, 34, 1.0);
-    border: 1px solid rgba(230, 126, 34, 1.0);
+    background: #07BDFE;
+    border: 1px solid #07BDFE;
     width: 100%;
     padding: 8px;
-    color: #FFFFFF;
     font-size: 14px;
+    color: #FFFFFF;
     transition: all 0.5s ease;
     cursor: pointer;
     margin: 0 0 15px;
@@ -466,8 +500,7 @@ button {
 .form button:hover,
 .form button:active,
 .form button:focus {
-    background: transparent;
-    color: rgba(230, 126, 34, 1.0);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 .form .message {
@@ -527,11 +560,14 @@ button {
 }
 
 .form label {
-    color: white;
     font-family: "Robot", sans-serif;
     font-size: 1.25em;
-    padding: 15px;
     display: inline-block;
+    width: 100%;
+    margin: 0 0 15px;
+    padding: 8px;
+    color: #010101;
+    text-align: center;
 }
 
 

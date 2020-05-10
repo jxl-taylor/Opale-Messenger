@@ -4,7 +4,7 @@
  *
  */
 // const electron = require('electron');
-const {app, globalShortcut, ipcMain, BrowserWindow, Tray, Menu,screen } = require('electron');
+const {app, globalShortcut, ipcMain, BrowserWindow, Tray, Menu, screen} = require('electron');
 const myCommon = require("./js/common");
 
 // For the window
@@ -65,7 +65,7 @@ function createMain() {
 
 	// IPC PART
 	ipcMain.on('toggle-window', () => {
-		if(!posBubbleChanged && bubble.isFocused()){
+		if (!posBubbleChanged && bubble.isFocused()) {
 			mainWindow.webContents.reload();
 			bubble.webContents.send('message-read');
 			if (mainWindow.isVisible()) {
@@ -147,7 +147,6 @@ function createMain() {
 		bubble.blur();
 	});
 }
-
 
 
 // Triggered when the app is created and ready to use, this one creates the window responsible for displaying the Messenger app
@@ -246,18 +245,19 @@ app.on('will-quit', () => {
 
 
 //启动定时器
-setInterval(async function(){
-	try{
-		let res =  await myCommon.heartbeat();
-		if(!res) console.warn('控制中心未配置');
+setInterval(async function () {
+	try {
+		let res = await myCommon.heartbeat();
+		if (!res) console.warn('控制中心未配置');
 		else {
 			console.info(JSON.stringify(res));
-			bubble.webContents.send('message-received', res.messageNum);
+			if (res.messageNum && res.messageNum > 0)
+				bubble.webContents.send('message-received', res.messageNum);
 		}
-	}catch (err) {
+	} catch (err) {
 		console.error(err);
 	}
-},15000);
+}, 15000);
 
 function deduceNewWindowPos() {
 	const {
