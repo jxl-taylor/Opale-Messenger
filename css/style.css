@@ -426,7 +426,7 @@ button {
 }
 
 .form div input{
-    width: 180px;
+    width: 280px;
     height: 36px;
     outline: none;
     display: inline-block;
@@ -470,7 +470,7 @@ button {
     width: 25px;
     height: 25px;
     background: url(../images/login_ico.png);
-    background-position:  -85px -35px;
+    background-position:  -85px -155px;
     position: absolute;
     margin: 7px 13px;
 }

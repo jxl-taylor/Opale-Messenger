@@ -1,6 +1,10 @@
 const settings = require('electron-settings');
 const request = require("axios");
 
+request.defaults.headers = {
+	"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+}
+
 async function heartbeat() {
 	let ctlUrl = await settings.get('User.CtlUrl');
 	console.info(ctlUrl);

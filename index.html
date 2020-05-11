@@ -47,7 +47,7 @@
 
 <!--------------------------------------------------------- Webview ----------------------------------------------------------!-->
 <div id="webviewWrapper" class="invisible">
-    <webview src="http://47.100.24.237:18090/im/login" id="webview" autosize="on"></webview>
+    <webview src="" id="webview" autosize="on"></webview>
 </div>
 
 <!--------------------------------------------------------- Settings panel ----------------------------------------------------------!-->
@@ -186,6 +186,9 @@
 			ctlUrl = $('#iCtlUrl').val();
 			mail = $('#iMail').val();
 			nick = $('#iNick').val();
+			var webview = document.getElementById('webview');
+			webview.src = ctlUrl + '/im/login';
+			webview.reload();
 		}
 	}
 </script>
@@ -225,6 +228,9 @@
 			$('#iCtlUrl').val(ctlUrl);
 			$('#iMail').val(mail);
 			$('#iNick').val(nick);
+			var webview = document.getElementById('webview');
+			webview.src = ctlUrl + '/im/login';
+			webview.reload();
 		}
 		// AutoLog
 		val = await settings.get('AutoLog');
