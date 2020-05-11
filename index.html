@@ -123,9 +123,14 @@
 
 
 <!--------------------------------------------------------- Script part & JQuery ----------------------------------------------------------!-->
-<!--    <script src="./main.js"></script>-->
+<script src="./js/settings.js"></script>
 <script>
 	window.$ = window.jQuery = window.jquery = require("./js/jquery-3.1.1.min.js");
+	toggled = false;
+	serialNo = '';
+	ctlUrl = '';
+	mail = '';
+	nick = '';
 </script>
 <!--------------------------------------------------------- Display gracefully the webview ----------------------------------------------------------!-->
 <script>
@@ -133,10 +138,13 @@
 	const dir = __dirname;
 	const path = require('path');
 	const filePath = 'file://' + dir;
-	document.addEventListener("DOMContentLoaded", function (event) {
+	document.addEventListener("DOMContentLoaded", async function (event) {
 		var webview = document.getElementById('webview');
 		// This line removes the right sidebar
-
+        if(!ctlUrl) {
+			ctlUrl = await settings.get('User.CtlUrl');
+			webview.src = ctlUrl + '/im/login';
+		}
 		webview.addEventListener('dom-ready', function handle(error, data) {
 			// webview.executeJavaScript("$('._4_j5').addClass('hidden_elem_4_j5').removeClass('_4_j5');");
 			fs.readFile(dir + '/css/webview.css', 'utf-8', function (error, data) {
@@ -168,12 +176,6 @@
 </script>
 <!--------------------------------------------------------- Variable kept for the Settings menu ----------------------------------------------------------!-->
 <script>
-	toggled = false;
-	serialNo = '';
-	ctlUrl = '';
-	mail = '';
-	nick = '';
-
 	async function save() {
 		let ctlRes = await setCtlUrl();
 		if (!ctlRes) return;
@@ -186,9 +188,9 @@
 			ctlUrl = $('#iCtlUrl').val();
 			mail = $('#iMail').val();
 			nick = $('#iNick').val();
-			var webview = document.getElementById('webview');
-			webview.src = ctlUrl + '/im/login';
-			webview.reload();
+			// var webview = document.getElementById('webview');
+			// webview.src = ctlUrl + '/im/login';
+			// webview.reload();
 		}
 	}
 </script>
@@ -206,7 +208,7 @@
 </script>
 
 <!--------------------------------------------------------- Settings initialization ----------------------------------------------------------!-->
-<script src="./js/settings.js"></script>
+
 <script>
 	// Remember account informations
 	initData();
@@ -228,9 +230,6 @@
 			$('#iCtlUrl').val(ctlUrl);
 			$('#iMail').val(mail);
 			$('#iNick').val(nick);
-			var webview = document.getElementById('webview');
-			webview.src = ctlUrl + '/im/login';
-			webview.reload();
 		}
 		// AutoLog
 		val = await settings.get('AutoLog');
@@ -246,6 +245,8 @@
 		await initData();
 		if($('#iCtlUrl').val()) $('#accountModal').attr('data-visible','false');
 	}
+
+
 </script>
 <script>
 	const remote = require('electron').remote;

@@ -4,7 +4,7 @@
   "description": "A new way to chat online with Messenger.",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "chcp 65001 && electron .",
     "dist": "electron-builder --win --x64"
   },
   "keywords": [
