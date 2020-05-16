@@ -347,6 +347,7 @@ function buildContextMenu() {
 					bubble.close();
 				}
 			}],
-		showInspectElement: false
+		showInspectElement: false,
+		showCopyImage: false
 	});
 }

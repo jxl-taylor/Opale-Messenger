@@ -94,7 +94,7 @@
             </button>
             <div class="form">
                 <form onsubmit="return false">
-                    <label>您的信息</label>
+                    <label class="title_label">您的信息</label>
                     <div class="input_outer">
                         <span class="u_ctl"></span>
                         <input type="text" placeholder="控制中心地址" id="iCtlUrl" style="color: #FFFFFF !important"/>
@@ -112,6 +112,11 @@
                         <span class="u_nick"></span>
                         <input type="text" placeholder="昵称" id="iNick" style="color: #FFFFFF !important"/>
                     </div>
+                    <div class="checkbox_outer">
+                        <label class="input_label"><input type="checkbox">记住密码</label>
+                        <label class="input_label" style="float: right"><input type="checkbox">自动登录</label>
+                    </div>
+
                     <span id="userErr" class="wrong-credentials"></span>
                     <button type="button" onclick="save()">保存
                     </button>
